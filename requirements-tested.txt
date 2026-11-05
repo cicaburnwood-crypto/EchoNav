@@ -1,0 +1,6 @@
+# Versions used for release validation. Install the correct torch wheel for
+# your platform separately; the tested CUDA build used CUDA 13.0.
+torch==2.10.0
+numpy==1.26.4
+Pillow==11.3.0
+pytest==9.1.1

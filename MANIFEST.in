@@ -1,0 +1,2 @@
+include LICENSE README.md THIRD_PARTY.md VALIDATION.md
+recursive-include licenses *.txt
