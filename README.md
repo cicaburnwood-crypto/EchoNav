@@ -23,7 +23,7 @@ python -m pip install -e '.[test]'
 pytest -q
 ```
 
-The reference CUDA path uses BF16 computation with FP32 head parameters. A CPU FP32 path is available but substantially slower and is not promised to be bitwise equal to CUDA. The model never selects an idle GPU, terminates processes or allocates a multi-GPU job on its own. Choose an available device explicitly.
+The reference CUDA path uses BF16 computation with FP32 head parameters, highest FP32 matmul precision, and cuDNN benchmarking. Model construction applies those process-wide PyTorch execution settings. A CPU FP32 path is available but substantially slower and is not promised to be bitwise equal to CUDA. The model never selects an idle GPU, terminates processes or allocates a multi-GPU job on its own. Choose an available device explicitly.
 
 The default batches up to nine history proposals together. On smaller GPUs, use `--history-batch-size 1` (Python: `history_batch_size=1`) to process them serially without dropping frames, changing weights or reducing resolution. This reduces peak activation memory at the cost of speed; minor floating-point differences between batching modes are possible. The default ten-frame path can exceed 8 GB VRAM. No automatic precision downgrade is performed after an out-of-memory error.
 

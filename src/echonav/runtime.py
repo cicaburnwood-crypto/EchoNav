@@ -42,9 +42,11 @@ class EchoNav(nn.Module):
                 "History proposal batch size must be an integer from 1 to 9"
             )
         self.device = torch.device(device)
+        torch.set_float32_matmul_precision("highest")
         if self.device.type not in {"cpu", "cuda"}:
             raise ValueError("Use a CPU or CUDA device")
         if self.device.type == "cuda":
+            torch.backends.cudnn.benchmark = True
             with torch.cuda.device(self.device):
                 if not torch.cuda.is_bf16_supported():
                     raise RuntimeError("Reference CUDA inference requires BF16 support")
