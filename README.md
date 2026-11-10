@@ -1,5 +1,7 @@
 # EchoNav Gen.1
 
+[Project Website](https://cicaburnwood-crypto.github.io/EchoNav/) · [Paper (arXiv)](https://arxiv.org/abs/2610.27616)
+
 **RGB history → learned bird's-eye-view prediction → interchangeable planar planning.**
 
 EchoNav Gen.1 predicts a local metric map of observed and occluded space from a short RGB sequence. It exposes occupancy, predicted support, an observed-free gate, and confidence to a navigation backend. This repository contains the inference implementation, pretrained BEV-head weights, A* and Dijkstra backends, and tests. It does not contain training infrastructure or robot-control software.
