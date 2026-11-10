@@ -31,25 +31,21 @@ The default batches up to nine history proposals together. On smaller GPUs, use 
 
 1. Download `echonav_gen1.pt` from this repository's **v1.0.0 GitHub Release** into `weights/`. It contains only the inference head, model name and format identifier. No optimizer, data manifest, source paths or training metadata are included.
 2. Obtain the **VGGT-Omega-1B-512** backbone from the [official model distribution](https://huggingface.co/facebook/VGGT-Omega/blob/main/vggt_omega_1b_512.pt), following its access and license requirements. Save it as `weights/backbone.pt`. The backbone is not redistributed here.
-3. Verify both files before inference:
+
+Optionally, download the inference-head weights with the GitHub CLI from inside this cloned repository:
 
 ```bash
 mkdir -p weights
-# Optional: GitHub CLI, run inside this cloned repository.
 gh release download v1.0.0 --pattern echonav_gen1.pt --dir weights
-python scripts/verify_weights.py --head weights/echonav_gen1.pt --backbone weights/backbone.pt
 ```
-
-| File | SHA-256 |
-|---|---|
-| `echonav_gen1.pt` | `a7f5dbda0843fe2bbf562f0a2daea5eeb4969290e2867ee1eeb0c5681d0fed60` |
-| `backbone.pt` | `c02da418b18bb01d0392598d3f6147366bcde1bb70fd08a5e3bf7925b0667934` |
 
 Only load trusted checkpoints. The implementation uses PyTorch's restricted `weights_only=True` loader and strict parameter loading. An arbitrary checkpoint from a different model family is not compatible.
 
 ## Inference
 
-Provide **1–10 RGB frames, explicitly ordered oldest to latest**. The intended history is up to approximately five seconds at 2 Hz. Frames should belong to the same camera trajectory. The final frame defines the output coordinate system. No ground-truth depth, camera intrinsics/extrinsics, camera height or scale value is an inference input.
+Provide **1–10 RGB frames, explicitly ordered oldest to latest**. The reference history is up to approximately five seconds at 2 Hz. **Historical frames sampled at more than 10 FPS are also accepted**, within the same 1–10-frame limit per inference call. Higher history sampling rates can affect the achievable inference frequency when more frames or more frequent windows are processed; the camera/history FPS is not a guarantee of model inference FPS. Frames should belong to the same camera trajectory. The final frame defines the output coordinate system. No ground-truth depth, camera intrinsics/extrinsics, camera height or scale value is an inference input.
+
+**For best accuracy, mount the robot camera 0.2–0.8 m above the ground.** The model retains some generalization ability outside this height range, but prediction accuracy is affected and may decrease.
 
 ```bash
 echonav infer \
