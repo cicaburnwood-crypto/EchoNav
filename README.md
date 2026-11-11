@@ -1,5 +1,7 @@
 # EchoNav Gen.1
 
+[Project Website](https://cicaburnwood-crypto.github.io/EchoNav/) · [Paper (arXiv)](https://arxiv.org/abs/2610.27616)
+
 ## Installation
 
 Use Python 3.10 or newer and install a suitable [PyTorch build](https://pytorch.org/get-started/locally/) for your machine.
@@ -12,7 +14,7 @@ source .venv/bin/activate
 python -m pip install -e .
 ```
 
-For inference, download `echonav_gen1.pt` from the [v1.0.0 release](https://github.com/cicaburnwood-crypto/EchoNav/releases/tag/v1.0.0) into `weights/`. Download the [VGGT-Omega-1B-512 backbone](https://huggingface.co/facebook/VGGT-Omega/blob/main/vggt_omega_1b_512.pt) and save it as `weights/backbone.pt`.
+For inference, download [echonav_gen1.pt](https://huggingface.co/Wolfie-Jr/EchoNav/resolve/main/echonav_gen1.pt?download=true) from [Hugging Face](https://huggingface.co/Wolfie-Jr/EchoNav) and save it as `weights/echonav_gen1.pt`. Download the [VGGT-Omega-1B-512 backbone](https://huggingface.co/facebook/VGGT-Omega/blob/main/vggt_omega_1b_512.pt) and save it as `weights/backbone.pt`.
 
 ## Interchangeable planar navigation backends
 
